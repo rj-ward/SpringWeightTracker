@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 import spring.model.WeightEntry;
 
 
-@Repository
+@Repository 
 public interface WeightRepository extends JpaRepository<WeightEntry, Long>{
 
 }

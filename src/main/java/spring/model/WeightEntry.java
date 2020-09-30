@@ -1,22 +1,23 @@
 package spring.model;
 
-import java.time.LocalDate;
+
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 public class WeightEntry {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@Autowired
-	private User username;
-	private LocalDate date;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date date;
 	private double weight;
 	
 	
@@ -24,37 +25,33 @@ public class WeightEntry {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	public WeightEntry(User username, LocalDate date, double weight) {
-		super();
-		this.username = username;
-		this.date = date;
-		this.weight = weight;
-	}
 
 
 	public long getId() {
 		return id;
 	}
+
+
 	public void setId(long id) {
 		this.id = id;
 	}
-	public User getUsername() {
-		return username;
-	}
-	public void setUsername(User username) {
-		this.username = username;
-	}
-	public LocalDate getDate() {
+
+
+	public Date getDate() {
 		return date;
 	}
-	public void setDate(LocalDate date) {
+
+
+	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
 	public double getWeight() {
 		return weight;
 	}
+
+
 	public void setWeight(double weight) {
 		this.weight = weight;
 	}
@@ -62,8 +59,6 @@ public class WeightEntry {
 
 	@Override
 	public String toString() {
-		return "WeightEntry [id=" + id + ", username=" + username + ", date=" + date + ", weight=" + weight + "]";
+		return "WeightEntry [id=" + id + ", date=" + date + ", weight=" + weight + "]";
 	}
-	
-	
 }
