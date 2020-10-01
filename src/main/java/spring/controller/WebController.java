@@ -81,7 +81,13 @@ public class WebController {
 		for (int i = 0; i < data.size(); i++) {
 			LocalDateTime date = LocalDateTime.ofInstant(data.get(i).getDate().toInstant(), ZoneId.systemDefault());
 			LocalDate calender = LocalDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
-			sb.append("{ label: \"" + calender.format(DateTimeFormatter.ofPattern("dd-MMM-yy")) + "\",  y: " + data.get(i).getWeight() + "  }");
+			sb.append("{ label: ");
+			sb.append("\"");
+			sb.append(calender.format(DateTimeFormatter.ofPattern("dd-MMM-yy")));
+			sb.append("\"");
+			sb.append(",  y: ");
+			sb.append(data.get(i).getWeight());
+			sb.append("  }");
 			if (i < data.size() - 1) {
 				sb.append(", ");
 			}
