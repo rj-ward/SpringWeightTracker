@@ -16,8 +16,30 @@
 
 </head>
 <body>
-<a href="./signup.html">Sign Up</a> <br>
-<a href="./login.html">Login</a> <br>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+   <h3>Weights</h3>
+  </div>
+  <div class="panel-body">
+<table class="table-condensed">
+ <thead>
+     <tr>
+      <th >Date</th>
+      <th >Weight</th>
+      <th></th>
+      <th></th>
+     </tr>
+    </thead>
+<tr th:each="entry : ${entries}" >
+<td th:text="${#dates.format(entry.date, 'dd-MMM-yyyy')}" />
+<td th:text="${entry.weight}" />
+<td><a th:href="@{/edit/{id}(id=${entry.id})}">Edit</a></td>
+<td><a th:href="@{/delete/{id}(id=${entry.id})}">Delete</a></td>
+</tr>
+</table>
 
+<a href="input">Add a new entry</a>
+</div>
+</div>
 </body>
 </html>

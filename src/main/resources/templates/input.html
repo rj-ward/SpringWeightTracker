@@ -16,6 +16,11 @@
 
 </head>
 <body>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+   <h3>Add New Entry</h3>
+  </div>
+  <div class="panel-body">
 	<form th:object="${newEntry}" th:action="@{/update/{id}(id=${newEntry.id})}" 
 				method=POST>
 		 <div class="form-group">
@@ -28,6 +33,6 @@
 	</form>
 	
 	<a href="viewAll">View all Contacts</a>
-
+</div>
 </body>
 </html>

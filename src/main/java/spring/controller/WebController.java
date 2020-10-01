@@ -1,5 +1,12 @@
 package spring.controller;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import spring.dao.WeightRepository;
 import spring.model.WeightEntry;
@@ -60,4 +67,27 @@ public class WebController {
 		return viewAllEntries(model);
 
 	}
+	
+	@GetMapping(value = {"chart"})
+    public String getData(Model model){
+		model.addAttribute("dataPoints", getDataPoints());
+		model.addAttribute("entries", repo.findAll());
+        return "chart";
+    }
+
+	private String getDataPoints() {
+		ArrayList<WeightEntry> data = (ArrayList<WeightEntry>) repo.findAll();
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < data.size(); i++) {
+			LocalDateTime date = LocalDateTime.ofInstant(data.get(i).getDate().toInstant(), ZoneId.systemDefault());
+			LocalDate calender = LocalDate.of(date.getYear(), date.getMonthValue(), date.getDayOfMonth());
+			sb.append("{ label: \"" + calender.format(DateTimeFormatter.ofPattern("dd-MMM-yy")) + "\",  y: " + data.get(i).getWeight() + "  }");
+			if (i < data.size() - 1) {
+				sb.append(", ");
+			}
+		}
+		
+		return sb.toString();
+	}
+	
 }
